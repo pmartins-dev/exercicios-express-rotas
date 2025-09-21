@@ -1,17 +1,32 @@
-Exercício 1: Gerador de Cumprimentos (Foco em req.params com texto)
-Objetivo: Praticar o uso de req.params com dados do tipo string e reforçar a concatenação de texto na resposta.
+Exercício 2: Validador de Idade (Foco em req.query e Lógica Condicional)
+Objetivo: Praticar o uso de req.query, a conversão de strings para números e a aplicação de lógica condicional (if/else).
 
 Descrição:
-Crie um projeto Express com uma única rota /cumprimentar/:nome/:saudacao.
+Crie uma rota /validar-usuario que receba dois parâmetros via query: nome e idade.
+A rota deve verificar se a idade é maior ou igual a 18.
 
-:nome será o nome de uma pessoa.
+Se for, deve retornar uma mensagem de boas-vindas.
 
-:saudacao será uma saudação (ex: "Bom-dia", "Boa-tarde", "Bem-vindo").
+Se não for, deve retornar uma mensagem informando que o acesso é restrito.
 
-A rota deve capturar esses dois parâmetros e retornar uma mensagem personalizada.
+Se o parâmetro idade ou nome não for fornecido, retorne uma mensagem de erro.
 
-Exemplo de chamada:
-GET /cumprimentar/Mariana/Bem-vinda
+Exemplos de chamada:
 
-Resultado Esperado:
-Olá, Mariana! Seja Bem-vinda!
+GET /validar-usuario?nome=Carlos&idade=25
+
+Resultado Esperado: Olá, Carlos! Seja bem-vindo, seu acesso foi liberado.
+
+GET /validar-usuario?nome=Julia&idade=16
+
+Resultado Esperado: Olá, Julia! Desculpe, seu acesso é restrito para maiores de 18 anos.
+
+GET /validar-usuario?nome=Ana
+
+Resultado Esperado: Erro: Por favor, informe a idade.
+
+Para Reforçar:
+
+Lembre-se que todo parâmetro vindo da URL é uma string. Você precisará convertê-lo para número usando parseInt() antes de fazer a comparação.
+
+Como você verifica se um parâmetro foi realmente enviado na requisição? (Dica: if (!req.query.idade) { ... })

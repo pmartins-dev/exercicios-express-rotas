@@ -1,36 +1,65 @@
 const express = require('express');
 const app = express();
 const PORT = 8080;
+const fs = require('fs');
 
-app.get('/validacao-usuarios', (req, res) => {
+//Lendo o arquivo JSON e convertendo para objeto JS
+const listaProdutos = JSON.parse(fs.readFileSync('./produtos.json', 'utf-8'));
+
+app.get('/produtos/:id', (req, res) => {
     
     try {
-        
-        const {nome, idade} = req.query;
-        let idadeConvertidada = parseInt(idade);
-        
-        if (!nome) {
+
+        //Lendo e converte o ID que vem da URL
+        const idProduto = parseInt(req.params.id);
+
+        const produtoEncontrado = listaProdutos.find(produto => produto.id === idProduto);
+
+        if (produtoEncontrado) {
+
+            return res.status(200).json(produtoEncontrado);
             
-            return res.status(400).json('Erro: informe seu nome');
+        } else {
+
+            return res.status(404).json({message: "Produto não encotrado!"})
+
         }
-
-        if (isNaN(idadeConvertidada)) {
-            
-            return res.status(400).json('Erro: Idade não e um numero ou não foi informada!');
-        }
-
-        if (idadeConvertidada < 18) {
-
-            return res.status(403).json({message: `Olá, ${nome}! Desculpe, seu acesso é restrito para maiores de 18 anos`});
-        }
-
-        return res.status(200).json({message: `Olá, ${nome}! Seja bem-vindo(a), seu acesso foi liberado`});
+        
 
     } catch (error) {
-        console.error('Erro interno no servidor', error);
+
+        console.error('Erro ao ler arquivo JSON', error);
         res.status(500).json({ message: 'Erro interno no servidor' });
+        
     }
     
+});
+
+app.get('/produtos', (req, res)=>{
+
+    try {
+        
+        let produtosParaEnviar = listaProdutos;
+
+        const {categoria} = req.query;
+
+        if (categoria) {
+
+             produtosParaEnviar = listaProdutos.filter(produto =>
+                produto.categoria.toLowerCase() // converte para minusculo 
+                    .includes(categoria.toLowerCase()))
+            
+        }
+
+        res.status(200).json(produtosParaEnviar)
+
+    } catch (error) {
+        
+        console.error('Erro ao ler arquivo JSON', error);
+        res.status(500).json({ message: 'Erro interno no servidor' });
+
+    }
+
 });
 
 app.listen(PORT, () => {

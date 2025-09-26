@@ -1,0 +1,37 @@
+[
+    {
+        "id": 1, 
+        "nome": "Teclado Mecânico",
+        "categoria": "perifericos", 
+        "preco": 350.00
+    },
+
+    {
+        "id": 2, 
+        "nome": "Mouse Gamer",
+        "categoria": "perifericos", 
+        "preco": 150.00
+    },
+
+    {
+        "id": 3, 
+        "nome": "Monitor 24",
+        "categoria": "monitores", 
+        "preco": 950.00
+    },
+
+    {
+        "id": 4, 
+        "nome": "Cadeira Gamer",
+        "categoria": "acessorios", 
+        "preco": 1200.00
+    },
+
+    {
+        "id": 5, 
+        "nome": "Headset 7.1",
+        "categoria": "perifericos", 
+        "preco": 450.00
+    }
+
+]
